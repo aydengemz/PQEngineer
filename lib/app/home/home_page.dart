@@ -6,6 +6,7 @@ import './webrtc/src/call_sample/call_sample.dart';
 import 'account/account_page.dart';
 import 'cupertino_home_scaffold.dart';
 import 'tab_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +15,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TabItem _currentTab = TabItem.iot;
+   String _serverAddress = '';
+  SharedPreferences prefs;
+
+ initState() {
+    super.initState();
+
+    _initData();
+    //_initItems();
+  }
+
+_initData() async {
+    prefs = await SharedPreferences.getInstance();
+    _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
+  
+   
+  }
+
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.iot: GlobalKey<NavigatorState>(),
@@ -26,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     return {
       TabItem.iot: (_) => IoTPage(),
       TabItem.ai: (_) => AIPage(),
-      TabItem.ar: (_) => CallSample(ip: '192.168.86.36'),
+      TabItem.ar: (_) => CallSample(ip: _serverAddress),
       TabItem.account: (_) => AccountPage(),
     };
   }

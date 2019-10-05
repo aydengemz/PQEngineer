@@ -3,8 +3,39 @@ import 'package:provider/provider.dart';
 import 'package:fiveg/common_widgets/avatar.dart';
 import 'package:fiveg/common_widgets/platform_alert_dialog.dart';
 import 'package:fiveg/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
+  String _serverAddress = '';
+  SharedPreferences prefs;
+  TextEditingController _controller;
+
+  initState() {
+    super.initState();
+
+    _initData();
+    //_initItems();
+  }
+
+  _initData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
+    });
+    _controller = new TextEditingController(text: _serverAddress);
+  }
+
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<void> _signOut(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context);
@@ -17,7 +48,7 @@ class AccountPage extends StatelessWidget {
   Future<void> _confirmSignOut(BuildContext context) async {
     final didRequestSignOut = await PlatformAlertDialog(
       title: 'Logout',
-      content: 'Are you sure that you want to logout?',
+      content: 'Are you sure that you want to logout??',
       cancelActionText: 'Cancel',
       defaultActionText: 'Logout',
     ).show(context);
@@ -30,26 +61,42 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Account'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text(
-              'Logout',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
+        appBar: AppBar(
+          title: Text('Account'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'Logout',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                ),
               ),
+              onPressed: () => _confirmSignOut(context),
             ),
-            onPressed: () => _confirmSignOut(context),
+          ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(130),
+            child: _buildUserInfo(user),
           ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(130),
-          child: _buildUserInfo(user),
         ),
-      ),
-    );
+        body: Column(
+          children: <Widget>[
+            TextField(
+              controller: _controller,
+            ),
+            RaisedButton(
+              onPressed: () {
+                // You can also use the controller to manipuate what is shown in the
+                // text field. For example, the clear() method removes all the text
+                // from the text field.
+                // _controller.clear();
+                prefs.setString('server', _controller.text);
+              },
+              child: new Text('SAVE'),
+            ),
+          ],
+        ));
   }
 
   Widget _buildUserInfo(User user) {

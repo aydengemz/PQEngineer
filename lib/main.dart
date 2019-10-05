@@ -1,3 +1,4 @@
+import 'package:fiveg/app/home/iot/iot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fiveg/app/landing_page.dart';
@@ -13,9 +14,20 @@ class MyApp extends StatelessWidget {
     return Provider<AuthBase>(
       builder: (context) => Auth(),
       child: MaterialApp(
-        title: 'Time Tracker',
+         onGenerateRoute: (RouteSettings settings) {
+        if (settings.isInitialRoute) {
+          return AnimationsPlayground.route();
+        }
+        return null;
+      },
+        title: 'PQ Engineer',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
+         
+           textTheme: TextTheme(
+            body1: TextStyle(fontSize: 20, color: Colors.blue),
+    ),
+            iconTheme: IconThemeData(color: Colors.blue),
         ),
         home: LandingPage(),
       ),
