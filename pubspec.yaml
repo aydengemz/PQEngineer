@@ -27,9 +27,11 @@ dependencies:
   intl: ^0.15.8
   rxdart: ^0.22.1+1
   bmnav: ^0.3.4
-
+  flare_flutter: any
   flutter_webrtc: ^0.1.7
   shared_preferences: ^0.5.3+4
+  mqtt_client: ^5.5.4
+  overlay_support: ^1.0.1
 
   sensors: ^0.4.0+1
   battery: ^0.3.0+5
@@ -58,6 +60,7 @@ flutter:
     - images/facebook-logo.png
     - images/s10.jpeg
     - images/Sensors.jpg
+    - Check.flr
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
