@@ -26,6 +26,7 @@ dependencies:
   cloud_firestore: ^0.12.9
   intl: ^0.15.8
   rxdart: ^0.22.1+1
+  bmnav: ^0.3.4
 
   flutter_webrtc: ^0.1.7
   shared_preferences: ^0.5.3+4
@@ -55,6 +56,8 @@ flutter:
   assets:
     - images/google-logo.png
     - images/facebook-logo.png
+    - images/s10.jpeg
+    - images/Sensors.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
