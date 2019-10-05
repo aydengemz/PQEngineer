@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.iot;
+  TabItem _currentTab = TabItem.inspect;
    String _serverAddress = '';
   SharedPreferences prefs;
 
@@ -29,22 +29,21 @@ _initData() async {
     prefs = await SharedPreferences.getInstance();
     _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
   
-   
   }
 
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.iot: GlobalKey<NavigatorState>(),
-    TabItem.ai: GlobalKey<NavigatorState>(),
-    TabItem.ar: GlobalKey<NavigatorState>(),
+    TabItem.inspect: GlobalKey<NavigatorState>(),
+    //TabItem.ai: GlobalKey<NavigatorState>(),
+    TabItem.help: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
-      TabItem.iot: (_) => IoTPage(),
-      TabItem.ai: (_) => AIPage(),
-      TabItem.ar: (_) => CallSample(ip: _serverAddress),
+      TabItem.inspect: (_) => IoTPage(ip: _serverAddress,),
+     // TabItem.ai: (_) => AIPage(),
+      TabItem.help: (_) => CallSample(ip: _serverAddress),
       TabItem.account: (_) => AccountPage(),
     };
   }

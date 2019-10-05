@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
 import 'package:mqtt_client/mqtt_client.dart' as mqtt;
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'snake.dart';
 
 class SensorPage extends StatefulWidget {
+  final String ip;
+
+  SensorPage({Key key, @required this.ip}) : super(key: key);
   @override
   _SensorPageState createState() => _SensorPageState();
 }
 
 class _SensorPageState extends State<SensorPage> {
+
+String _serverAddress = '';
+  SharedPreferences prefs;
 
 bool _hasMessage = false;
   bool _hasTopic = false;
@@ -21,7 +28,7 @@ bool _hasMessage = false;
   String _messageContent;
   String _topicContent = 'hacksensor';
 
-  String broker = '10.64.6.31';
+  //String broker = '10.64.6.31';
   mqtt.MqttClient client;
   mqtt.MqttConnectionState connectionState;
   Set<String> topics = Set<String>();
@@ -116,21 +123,34 @@ ScrollController messageController = ScrollController();
       subscription.cancel();
     }
   }
-
+_initData() async {
+    prefs = await SharedPreferences.getInstance();
+    _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
+  print(_serverAddress);
+  }
   @override
   void initState() {
     super.initState();
+    _initData();
     _connect();
-    _subscribeToTopic('hackcmd');
+    //_subscribeToTopic('hackcmd');
 
     if (mounted) {
       _streamSubscriptions
           .add(accelerometerEvents.listen((AccelerometerEvent event) {
         setState(() {
           _accelerometerValues = <double>[event.x, event.y, event.z];
-          _messageContent = event.x.toString();
-          _sendMessage();
-          print("message sengt");        });
+          /* String x = event.x.toString();
+          _sendMessagex(x);
+       
+          String z = event.z.toString();
+          _sendMessagez(z); */
+         // print("message sengt");
+        // _messageContent = _accelerometerValues.toString();  
+        // _sendMessage();
+           String y = event.y.toString();
+          _sendMessagey(y);
+          });
       }));
       _streamSubscriptions.add(gyroscopeEvents.listen((GyroscopeEvent event) {
         setState(() {
@@ -161,7 +181,8 @@ ScrollController messageController = ScrollController();
     /// The client identifier can be a maximum length of 23 characters. If a port is not specified the standard port
     /// of 1883 is used.
     /// If you want to use websockets rather than TCP see below.
-    client = mqtt.MqttClient(broker, '');
+    print(widget.ip);
+    client = mqtt.MqttClient(widget.ip, '');
 
     /// A websocket URL must start with ws:// or wss:// or Dart will throw an exception, consult your websocket MQTT broker
     /// for details.
@@ -212,8 +233,10 @@ ScrollController messageController = ScrollController();
     /// Check if we are connected
     if (client.connectionState == mqtt.MqttConnectionState.connected) {
       print('MQTT client connected');
+      
       setState(() {
         connectionState = client.connectionState;
+        _subscribeToTopic('hackcmd');
       });
     } else {
       print('ERROR: MQTT client connection failed - '
@@ -255,8 +278,8 @@ ScrollController messageController = ScrollController();
     print('MQTT message: topic is <${event[0].topic}>, '
         'payload is <-- ${message} -->');
     print(client.connectionState);
-    showSimpleNotification(Text(message),
-                      background: Colors.blue);
+  showSimpleNotification(Text(message),
+                      background: Colors.green);
     
 
     setState(() {
@@ -277,13 +300,16 @@ ScrollController messageController = ScrollController();
     });
   }
    void _subscribeToTopic(String topic) {
+     print("In Subscribe");
     if (connectionState == mqtt.MqttConnectionState.connected) {
+    
       setState(() {
-        if (topics.add(topic.trim())) {
+        //if (topics.add(topic.trim())) {
           print('Subscribing to ${topic.trim()}');
           client.subscribe(topic, mqtt.MqttQos.exactlyOnce);
         }
-      });
+     // }
+      );
     }
   }
    void _unsubscribeFromTopic(String topic) {
@@ -303,6 +329,48 @@ ScrollController messageController = ScrollController();
     builder.addString(_messageContent);
     client.publishMessage(
       _topicContent,
+      mqtt.MqttQos.values[_qosValue],
+      builder.payload,
+      retain: _retainValue,
+    );
+   // Navigator.pop(context);
+  }
+
+  void _sendMessagex(String x) {
+    final mqtt.MqttClientPayloadBuilder builder =
+        mqtt.MqttClientPayloadBuilder();
+
+    builder.addString(x);
+    client.publishMessage(
+      'hacksensorx',
+      mqtt.MqttQos.values[_qosValue],
+      builder.payload,
+      retain: _retainValue,
+    );
+   // Navigator.pop(context);
+  }
+
+  void _sendMessagey(String y) {
+    final mqtt.MqttClientPayloadBuilder builder =
+        mqtt.MqttClientPayloadBuilder();
+
+    builder.addString(y);
+    client.publishMessage(
+     'hacksensory',
+      mqtt.MqttQos.values[_qosValue],
+      builder.payload,
+      retain: _retainValue,
+    );
+   // Navigator.pop(context);
+  }
+
+  void _sendMessagez(String z) {
+    final mqtt.MqttClientPayloadBuilder builder =
+        mqtt.MqttClientPayloadBuilder();
+
+    builder.addString(z);
+    client.publishMessage(
+      'hacksensorz',
       mqtt.MqttQos.values[_qosValue],
       builder.payload,
       retain: _retainValue,

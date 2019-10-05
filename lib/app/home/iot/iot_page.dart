@@ -12,7 +12,21 @@ import 'index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AnimationsPlayground extends StatelessWidget {
+
+ 
+   String _serverAddress = '';
+  SharedPreferences prefs;
+
+ 
+
+_initData() async {
+    prefs = await SharedPreferences.getInstance();
+    _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
+  
+  }
+
   static Route<dynamic> route() {
+    
     return PageRouteBuilder(
       transitionDuration: const Duration(seconds: 3),
       pageBuilder: (BuildContext context, Animation<double> animation,
@@ -24,13 +38,18 @@ class AnimationsPlayground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _initData();
     return Scaffold(
-      body: IoTPage(),
+      body: IoTPage(ip: _serverAddress,),
     );
   }
 }
 
 class IoTPage extends StatefulWidget {
+  final String ip;
+
+  IoTPage({Key key, @required this.ip}) : super(key: key);
+
   @override
   _IoTPageState createState() => _IoTPageState();
 }
@@ -43,7 +62,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
     // kBottomNavigationBarHeight
 
     final images = ['images/s10.jpeg', 'images/Sensors.jpg', 'images/s10.jpeg'];
-    final pages = [PhoneInfo(), SensorPage(), BatteryPage()];
+    final pages = [PhoneInfo(), SensorPage(ip: widget.ip), BatteryPage()];
 
     return Scaffold(
       drawer: Drawer(
