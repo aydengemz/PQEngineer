@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.indigo,
            
              textTheme: TextTheme(
-              body1: TextStyle(fontSize: 20, color: Colors.blue),
+              body1: TextStyle(fontSize: 20, color: Color(0xff3a6aac)),
     ),
               iconTheme: IconThemeData(color: Colors.blue),
           ),

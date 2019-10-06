@@ -95,6 +95,18 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               color: Colors.white,
+              gradient: LinearGradient(
+                 begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          // Add one stop for each color. Stops should increase from 0 to 1
+          stops: [0.4, 0.9],
+          colors: [
+            // Colors are easy thanks to Flutter's Colors class.
+            Color(0xffb1acf9),
+            Color(0xff608fff),
+           
+          ],
+              ),
               borderRadius: BorderRadius.all(const Radius.circular(16.0)),
             ),
             child: Padding(
@@ -113,7 +125,8 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black,
+                              
+                              color: Colors.black.withOpacity(0.6),
                               blurRadius:
                                   10.0, // has the effect of softening the shadow
                               spreadRadius:
@@ -133,7 +146,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                               child: Text(
                                 "Production Quality Inspection",
                                 style: TextStyle(
-                                    color: Color(0xff70a0ff),
+                                    color: Color(0xff3a6aac),
                                     fontSize: 27,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -142,7 +155,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                 child: Text(
                               "Production quality inspection is",
                               style: TextStyle(
-                                  color: Color(0xff70a0ff),
+                                  color: Color(0xff3a6aac),
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.w300),
                             )),
@@ -161,7 +174,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                             padding: EdgeInsets.only(top: 20.0),
                             child: Container(
                               alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.height * 0.3,
+                              height: MediaQuery.of(context).size.height * 0.25,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 3,
@@ -216,9 +229,9 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                                           boxShadow: [
                                                             BoxShadow(
                                                               color:
-                                                                  Colors.black,
+                                                                  Colors.black.withOpacity(0.6),
                                                               blurRadius:
-                                                                  5.0, // has the effect of softening the shadow
+                                                                  10.0, // has the effect of softening the shadow
                                                               spreadRadius:
                                                                   1.0, // has the effect of extending the shadow
                                                               offset: Offset(
@@ -277,10 +290,10 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
               centerTitle: true,
               title: Text(
                 'PQEngineer',
-                style: TextStyle(fontSize: 25, color: Colors.white),
+                style: TextStyle(fontSize: 30, color: Color(0xff3a6aac), fontWeight: FontWeight.w300),
               ),
 
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.transparent,
               elevation: 0.0, //Shadow gone
             ),
           ),
