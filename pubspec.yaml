@@ -45,7 +45,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon" 
   ios: true
-  image_path: "images/Icon.png"
+  image_path: "images/Icon.jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -68,7 +68,9 @@ flutter:
     - images/Sensors.jpg
     - Check.flr
     - images/BatteryInfo.jpg
-    - images/Icon.png
+    - images/Icon.jpg
+    - images/header.png
+    - images/card.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

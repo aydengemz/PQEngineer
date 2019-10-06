@@ -99,10 +99,12 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                  begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           // Add one stop for each color. Stops should increase from 0 to 1
-          stops: [0.4, 0.9],
+          stops: [0, 0.4, 0.9],
           colors: [
             // Colors are easy thanks to Flutter's Colors class.
-            Color(0xffb1acf9),
+            Color(0xff83c1ff),
+            //Colors.white,
+            Color(0xff6dcff6),
             Color(0xff608fff),
            
           ],
@@ -126,7 +128,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                           boxShadow: [
                             BoxShadow(
                               
-                              color: Colors.black.withOpacity(0.6),
+                              color: Colors.black.withOpacity(0.4),
                               blurRadius:
                                   10.0, // has the effect of softening the shadow
                               spreadRadius:
@@ -138,7 +140,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                             )
                           ],
                         ),
-                        child: Column(
+                        child: /* Column(
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(
@@ -164,6 +166,10 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                             )
                           ],
                         ),
+                         */
+                       ClipRRect(
+                          borderRadius: new BorderRadius.circular(16.0),
+                         child: Image.asset('images/card.jpg', fit: BoxFit.cover)),
                       ),
                     ),
                     Column(
@@ -182,7 +188,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                     return Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.85,
+                                                0.875,
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
@@ -229,7 +235,7 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                                           boxShadow: [
                                                             BoxShadow(
                                                               color:
-                                                                  Colors.black.withOpacity(0.6),
+                                                                  Colors.black.withOpacity(0.4),
                                                               blurRadius:
                                                                   10.0, // has the effect of softening the shadow
                                                               spreadRadius:
@@ -280,18 +286,15 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
             left: 0.0,
             right: 0.0,
             child: AppBar(
-              actions: <Widget>[
+            /*   actions: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.account_circle),
                   tooltip: 'Show Snackbar',
                   onPressed: () {},
                 ),
-              ],
+              ], */
               centerTitle: true,
-              title: Text(
-                'PQEngineer',
-                style: TextStyle(fontSize: 30, color: Color(0xff3a6aac), fontWeight: FontWeight.w300),
-              ),
+              title: Image.asset('images/header.png', fit: BoxFit.cover),
 
               backgroundColor: Colors.transparent,
               elevation: 0.0, //Shadow gone

@@ -82,9 +82,13 @@ class _AccountPageState extends State<AccountPage> {
         ),
         body: Column(
           children: <Widget>[
+            SizedBox(height: 40,),
             TextField(
+              textAlign: TextAlign.center,
               controller: _controller,
+              decoration: InputDecoration.collapsed(hintText: 'Type in IP Address'),
             ),
+            SizedBox(height: 8,),
             RaisedButton(
               onPressed: () {
                 // You can also use the controller to manipuate what is shown in the
@@ -103,7 +107,7 @@ class _AccountPageState extends State<AccountPage> {
     return Column(
       children: <Widget>[
         Avatar(
-          photoUrl: user.photoUrl,
+          photoUrl: "https://images.unsplash.com/photo-1570343096246-092fa979a4b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
           radius: 50,
         ),
         SizedBox(height: 8),

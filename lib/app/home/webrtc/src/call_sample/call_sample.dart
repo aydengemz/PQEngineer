@@ -167,10 +167,10 @@ class _CallSampleState extends State<CallSample> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Get Help'),
+        title: new Text('Get Help', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings, color: Colors.white,),
             onPressed: null,
             tooltip: 'setup',
           ),

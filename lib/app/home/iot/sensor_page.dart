@@ -61,57 +61,130 @@ ScrollController messageController = ScrollController();
         ?.toList();
 
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: const Text('Sensor Example'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border.all(width: 1.0, color: Colors.black38),
-              ),
-              child: SizedBox(
-                height: _snakeRows * _snakeCellSize,
-                width: _snakeColumns * _snakeCellSize,
-                child: Snake(
-                  rows: _snakeRows,
-                  columns: _snakeColumns,
-                  cellSize: _snakeCellSize,
+      ), */
+      body: 
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+                     begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0, 0.4, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Color(0xff83c1ff),
+              //Colors.white,
+              Color(0xff6dcff6),
+              Color(0xff608fff),
+             
+            ],
+                  ),
+        ),
+              child: Stack(children: <Widget>[
+  Padding(
+    padding: const EdgeInsets.only(top: 20.0, bottom: 30, right: 30, left: 30),
+    child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.0, color: Colors.white),
+                  ),
+                  child: SizedBox(
+                    height: _snakeRows * _snakeCellSize,
+                    width: _snakeColumns * _snakeCellSize,
+                    child: Snake(
+                      rows: _snakeRows,
+                      columns: _snakeColumns,
+                      cellSize: _snakeCellSize,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, right: 20, left: 20,  bottom: 20),
+                child: Center(child: Container(
+                  decoration: BoxDecoration(
+                     borderRadius:
+                                    BorderRadius.all(const Radius.circular(16)),
+                                color: Colors.white,
+                                 boxShadow: [
+                                BoxShadow(
+                                  
+                                  color: Colors.black.withOpacity(0.4),
+                                  blurRadius:
+                                      10.0, // has the effect of softening the shadow
+                                  spreadRadius:
+                                      1.0, // has the effect of extending the shadow
+                                  offset: Offset(
+                                    5.0, // horizontal, move right 10
+                                    5.0, // vertical, move down 10
+                                  ),
+                                )
+                              ],
+                  ),
+                                child: Column(children: <Widget>[
+  Padding(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('Accelerometer: \n\n $accelerometer'),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                  ),
+                  Padding(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('UserAccelerometer: \n\n $userAccelerometer'),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                  ),
+                  Padding(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('Gyroscope: \n\n $gyroscope'),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                  ),
+                  ],),
+                )),
+              ),
+            
+            ],
           ),
-          Padding(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Accelerometer: $accelerometer'),
-              ],
-            ),
-            padding: const EdgeInsets.all(16.0),
-          ),
-          Padding(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('UserAccelerometer: $userAccelerometer'),
-              ],
-            ),
-            padding: const EdgeInsets.all(16.0),
-          ),
-          Padding(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Gyroscope: $gyroscope'),
-              ],
-            ),
-            padding: const EdgeInsets.all(16.0),
-          ),
-        ],
+  ),
+        Positioned(
+                    //Place it at the top, and not use the entire screen
+                    top: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: AppBar(
+                    /*   actions: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.account_circle),
+                          tooltip: 'Show Snackbar',
+                          onPressed: () {},
+                        ),
+                      ], */
+                      centerTitle: true,
+                      title: Text(
+                   'Sensors', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),),
+                    
+                      backgroundColor: Colors.transparent,
+                      elevation: 0.0, //Shadow gone
+                    ),
+                ),
+        ],),
       ),
+    
       //floatingActionButton: FloatingActionButton(onPressed: _toggleStreaming(), child: Text("Toggle Streaming")),);
     ); 
   }

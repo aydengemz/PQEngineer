@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
              textTheme: TextTheme(
               body1: TextStyle(fontSize: 20, color: Color(0xff3a6aac)),
     ),
-              iconTheme: IconThemeData(color: Colors.blue),
+              iconTheme: IconThemeData(color: Colors.white),
           ),
           home: LandingPage(),
         ),

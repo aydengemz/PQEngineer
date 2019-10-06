@@ -107,36 +107,109 @@ class _PhoneInfoState extends State<PhoneInfo> {
   Widget build(BuildContext context) {
     //return MaterialApp(
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: Text(
             Platform.isAndroid ? 'Android Device Info' : 'iOS Device Info'),
-      ),
-      body: ListView(
-        shrinkWrap: true,
-        children: _deviceData.keys.map((String property) {
-          return Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  property,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Expanded(
-                  child: Container(
-                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                child: Text(
-                  '${_deviceData[property]}',
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )),
+      ), */
+      body: 
+      
+               SafeArea(
+                                child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                     begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0, 0.4, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Color(0xff83c1ff),
+              //Colors.white,
+              Color(0xff6dcff6),
+              Color(0xff608fff),
+             
             ],
-          );
-        }).toList(),
-      ),
+                  ),
+          ),
+                  child: Stack(children: <Widget>[
+            
+ Padding(
+   padding: const EdgeInsets.only(top: 80.0, left: 30, right: 30, bottom: 30),
+   child: Container(
+     decoration: BoxDecoration(
+          borderRadius:
+                                  BorderRadius.all(const Radius.circular(16)),
+                              color: Colors.white,
+                               boxShadow: [
+                              BoxShadow(
+                                
+                                color: Colors.black.withOpacity(0.4),
+                                blurRadius:
+                                    10.0, // has the effect of softening the shadow
+                                spreadRadius:
+                                    1.0, // has the effect of extending the shadow
+                                offset: Offset(
+                                  5.0, // horizontal, move right 10
+                                  5.0, // vertical, move down 10
+                                ),
+                              )
+                            ],
+     ),
+          child: ListView(
+                  shrinkWrap: true,
+                  children: _deviceData.keys.map((String property) {
+                    return Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            property,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                          child: Text(
+                            '${_deviceData[property]}',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )),
+                      ],
+                    );
+                  }).toList(),
+              ),
+   ),
+ ),
+             Positioned(
+                  //Place it at the top, and not use the entire screen
+                  top: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: AppBar(
+                  /*   actions: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.account_circle),
+                        tooltip: 'Show Snackbar',
+                        onPressed: () {},
+                      ),
+                    ], */
+                    centerTitle: true,
+                    title: Text(
+                  Platform.isAndroid ? 'Android Device Info' : 'iOS Device Info', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),),
+                  
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0, //Shadow gone
+                  ),
+              ),
+          ],),
+        ),
+               ),
+      
+     
     );
   }
 }
