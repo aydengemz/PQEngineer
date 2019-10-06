@@ -33,6 +33,7 @@ dependencies:
   mqtt_client: ^5.5.4
   overlay_support: ^1.0.1
 
+ 
   sensors: ^0.4.0+1
   battery: ^0.3.0+5
   device_info: ^0.4.0+2
@@ -40,6 +41,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.3"
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "images/Icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -61,6 +67,8 @@ flutter:
     - images/s10.jpeg
     - images/Sensors.jpg
     - Check.flr
+    - images/BatteryInfo.jpg
+    - images/Icon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

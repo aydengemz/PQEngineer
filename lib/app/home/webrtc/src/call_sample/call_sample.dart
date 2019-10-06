@@ -50,8 +50,7 @@ class _CallSampleState extends State<CallSample> {
 
   void _connect() async {
     if (_signaling == null) {
-      _signaling = new Signaling(serverIP, _displayName)
-        ..connect();
+      _signaling = new Signaling(serverIP, _displayName)..connect();
 
       _signaling.onStateChange = (SignalingState state) {
         switch (state) {
@@ -114,9 +113,7 @@ class _CallSampleState extends State<CallSample> {
     _signaling.switchCamera();
   }
 
-  _muteMic() {
-
-  }
+  _muteMic() {}
 
   _buildRow(context, peer) {
     var self = (peer['id'] == _selfId);
@@ -131,16 +128,34 @@ class _CallSampleState extends State<CallSample> {
             child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  IconButton(
+                 /*  IconButton(
                     icon: const Icon(Icons.videocam),
                     onPressed: () => _invitePeer(context, peer['id'], false),
                     tooltip: 'Video calling',
+                  ), */
+                  GestureDetector(
+                    onTap: () => _invitePeer(context, peer['id'], false),
+                    child: CircleAvatar(
+                      radius: 18,
+                      child: ClipOval(
+                        child: Icon(Icons.videocam)
+                      ),
+                    ),
                   ),
-                  IconButton(
+                  GestureDetector(
+                    onTap: () => _invitePeer(context, peer['id'], false),
+                    child: CircleAvatar(
+                      radius: 18,
+                      child: ClipOval(
+                        child: Icon(Icons.screen_share)
+                      ),
+                    ),
+                  ),
+                  /* IconButton(
                     icon: const Icon(Icons.screen_share),
                     onPressed: () => _invitePeer(context, peer['id'], true),
                     tooltip: 'Screen sharing',
-                  )
+                  ) */
                 ])),
         subtitle: Text('id: ' + peer['id']),
       ),
@@ -152,7 +167,7 @@ class _CallSampleState extends State<CallSample> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('P2P Call Sample'),
+        title: new Text('Get Help'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
@@ -164,25 +179,26 @@ class _CallSampleState extends State<CallSample> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _inCalling
           ? new SizedBox(
-            width: 200.0,
-            child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  FloatingActionButton(
-                    child: const Icon(Icons.switch_camera),
-                    onPressed: _switchCamera,
-                  ),
-                  FloatingActionButton(
-                    onPressed: _hangUp,
-                    tooltip: 'Hangup',
-                    child: new Icon(Icons.call_end),
-                    backgroundColor: Colors.pink,
-                  ),
-                  FloatingActionButton(
-                    child: const Icon(Icons.mic_off),
-                    onPressed: _muteMic,
-                  )
-                ])) : null,
+              width: 200.0,
+              child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    FloatingActionButton(
+                      child: const Icon(Icons.switch_camera),
+                      onPressed: _switchCamera,
+                    ),
+                    FloatingActionButton(
+                      onPressed: _hangUp,
+                      tooltip: 'Hangup',
+                      child: new Icon(Icons.call_end),
+                      backgroundColor: Colors.pink,
+                    ),
+                    FloatingActionButton(
+                      child: const Icon(Icons.mic_off),
+                      onPressed: _muteMic,
+                    )
+                  ]))
+          : null,
       body: _inCalling
           ? OrientationBuilder(builder: (context, orientation) {
               return new Container(

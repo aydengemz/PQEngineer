@@ -12,21 +12,15 @@ import 'index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AnimationsPlayground extends StatelessWidget {
-
- 
-   String _serverAddress = '';
+  String _serverAddress = '';
   SharedPreferences prefs;
 
- 
-
-_initData() async {
+  _initData() async {
     prefs = await SharedPreferences.getInstance();
     _serverAddress = prefs.getString('server') ?? 'demo.cloudwebrtc.com';
-  
   }
 
   static Route<dynamic> route() {
-    
     return PageRouteBuilder(
       transitionDuration: const Duration(seconds: 3),
       pageBuilder: (BuildContext context, Animation<double> animation,
@@ -40,7 +34,9 @@ _initData() async {
   Widget build(BuildContext context) {
     _initData();
     return Scaffold(
-      body: IoTPage(ip: _serverAddress,),
+      body: IoTPage(
+        ip: _serverAddress,
+      ),
     );
   }
 }
@@ -61,7 +57,11 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
     //16 -
     // kBottomNavigationBarHeight
 
-    final images = ['images/s10.jpeg', 'images/Sensors.jpg', 'images/s10.jpeg'];
+    final images = [
+      'images/s10.jpeg',
+      'images/Sensors.jpg',
+      'images/BatteryInfo.jpg'
+    ];
     final pages = [PhoneInfo(), SensorPage(ip: widget.ip), BatteryPage()];
 
     return Scaffold(
@@ -93,9 +93,12 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(color: Color(0xff70a0ff)),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(const Radius.circular(16.0)),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 100.0, bottom: 20),
+              padding: const EdgeInsets.only(top: 140.0, bottom: 20),
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,44 +108,54 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                       padding: const EdgeInsets.all(16.0),
                       child: Container(
                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                const Radius.circular(16)),
-                                            color: Colors.white,
-                                            
-                                          ),
-                       
+                          borderRadius:
+                              BorderRadius.all(const Radius.circular(16)),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black,
+                              blurRadius:
+                                  10.0, // has the effect of softening the shadow
+                              spreadRadius:
+                                  1.0, // has the effect of extending the shadow
+                              offset: Offset(
+                                5.0, // horizontal, move right 10
+                                5.0, // vertical, move down 10
+                              ),
+                            )
+                          ],
+                        ),
                         child: Column(
                           children: <Widget>[
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 30.0, bottom: 10),
-                              child: Center(
-                                  child: Text(
-                                "Production Quality Engineer",
+                              padding: const EdgeInsets.only(
+                                  top: 30.0, bottom: 10, left: 30),
+                              child: Text(
+                                "Production Quality Inspection",
                                 style: TextStyle(
                                     color: Color(0xff70a0ff),
                                     fontSize: 27,
                                     fontWeight: FontWeight.w400),
-                              )),
+                              ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 10.0, bottom: 40, left: 30),
-                              child: Center(
-                                  child: Text(
-                                "Utilize 5G, Faster production quality inspections",
-                                style: TextStyle(
-                                    color: Color(0xff70a0ff),
-                                    fontSize: 17.5,
-                                    fontWeight: FontWeight.w300),
-                              )),
-                            ),
+                            Center(
+                                child: Text(
+                              "Production quality inspection is",
+                              style: TextStyle(
+                                  color: Color(0xff70a0ff),
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.w300),
+                            )),
+                            SizedBox(
+                              height: 100,
+                            )
                           ],
                         ),
                       ),
                     ),
                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(top: 20.0),
@@ -164,8 +177,11 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                             color: Colors.transparent,
                                           ),
                                           child: Container(
-                                              padding:
-                                                  EdgeInsets.only(left: 20),
+                                              padding: EdgeInsets.only(
+                                                  left: 20,
+                                                  top: 15,
+                                                  bottom: 15,
+                                                  right: 20),
                                               child: Center(
                                                   child: Row(
                                                 mainAxisAlignment:
@@ -197,6 +213,20 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                                                   const Radius
                                                                           .circular(
                                                                       16)),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color:
+                                                                  Colors.black,
+                                                              blurRadius:
+                                                                  5.0, // has the effect of softening the shadow
+                                                              spreadRadius:
+                                                                  1.0, // has the effect of extending the shadow
+                                                              offset: Offset(
+                                                                5.0, // horizontal, move right 10
+                                                                5.0, // vertical, move down 10
+                                                              ),
+                                                            )
+                                                          ],
                                                           image:
                                                               DecorationImage(
                                                             image: AssetImage(
@@ -214,9 +244,6 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
                                                           children: <Widget>[
                                                             /*   Icon(Icons.phone_android),
                                         Center(child: Text("Phone Info"))*/
-                                                            SizedBox(
-                                                              height: 10,
-                                                            )
                                                           ],
                                                         ),
                                                       ),
@@ -242,20 +269,18 @@ class _IoTPageState extends State<IoTPage> with SingleTickerProviderStateMixin {
             child: AppBar(
               actions: <Widget>[
                 IconButton(
-                  icon: const Icon(Icons.add_alert),
+                  icon: const Icon(Icons.account_circle),
                   tooltip: 'Show Snackbar',
                   onPressed: () {},
                 ),
               ],
               centerTitle: true,
-              title: Center(
-                child: Center(
-                    child: Text(
-                  'PQEngineer',
-                  style: TextStyle(fontSize: 25),
-                )),
+              title: Text(
+                'PQEngineer',
+                style: TextStyle(fontSize: 25, color: Colors.white),
               ),
-              backgroundColor: Colors.transparent,
+
+              backgroundColor: Colors.blue,
               elevation: 0.0, //Shadow gone
             ),
           ),
