@@ -55,6 +55,10 @@
 	<string>2029919127068190</string>
 	<key>FacebookDisplayName</key>
 	<string>Time Tracker</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Can I use the camera please?</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Can I use the mic please?</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
